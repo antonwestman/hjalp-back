@@ -6,9 +6,16 @@ Rails.application.routes.draw do
 
   resources :food_places, only: [:index, :show]
 
-  resources :days, only: [] do
-    collection do
-      get :today
+
+
+  resources :user, only: [:show] do
+    resources :preferences, only: [:show, :update]
+
+    resources :days, only: [] do
+      collection do
+        get :today
+        post :vote
+      end
     end
   end
 

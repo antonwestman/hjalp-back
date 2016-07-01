@@ -5,8 +5,8 @@ class Day < ApplicationRecord
     Day.where(date: Date.today).first_or_create
   end
 
-  def vote(user, place)
-    vote = today.where(user_id: user.id).first_or_create
-    vote.update_attribute(:place, place)
+  def vote(user_id, place_id)
+    vote = today.votes.where(user_id: user_id).first_or_create
+    vote.update_attribute(:place_id, place_id)
   end
 end
