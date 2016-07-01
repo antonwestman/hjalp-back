@@ -10,11 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20160701155220) do
+ActiveRecord::Schema.define(version: 20160701160710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "daily_votes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "food_place_id"
+    t.integer  "day_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "days", force: :cascade do |t|
+    t.date     "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "food_genres", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -52,7 +65,8 @@ ActiveRecord::Schema.define(version: 20160701155220) do
     t.integer  "user_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-=======
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "provider",               default: "email", null: false
     t.string   "uid",                    default: "",      null: false
@@ -79,7 +93,6 @@ ActiveRecord::Schema.define(version: 20160701155220) do
     t.index ["email"], name: "index_users_on_email", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
->>>>>>> 6c76569a5ec772ff7eab653c142b869045aab207
   end
 
 end
