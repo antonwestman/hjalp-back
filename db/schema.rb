@@ -10,10 +10,62 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160701152618) do
+ActiveRecord::Schema.define(version: 20160701160710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "daily_votes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "food_place_id"
+    t.integer  "day_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "days", force: :cascade do |t|
+    t.date     "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "food_genres", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "food_genres_places", id: false, force: :cascade do |t|
+    t.integer "food_place_id", null: false
+    t.integer "food_genre_id", null: false
+    t.index ["food_place_id", "food_genre_id"], name: "index_food_genres_places_on_food_place_id_and_food_genre_id", using: :btree
+  end
+
+  create_table "food_genres_preferences", id: false, force: :cascade do |t|
+    t.integer "preference_id", null: false
+    t.integer "food_genre_id", null: false
+    t.index ["preference_id", "food_genre_id"], name: "pref_to_food_genre", using: :btree
+  end
+
+  create_table "food_places", force: :cascade do |t|
+    t.string   "name",                       null: false
+    t.decimal  "rating",     default: "0.0"
+    t.decimal  "longitude"
+    t.decimal  "latitude"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  create_table "food_places_preferences", id: false, force: :cascade do |t|
+    t.integer "preference_id", null: false
+    t.integer "food_place_id", null: false
+    t.index ["preference_id", "food_place_id"], name: "pref_to_food_place", using: :btree
+  end
+
+  create_table "preferences", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "provider",               default: "email", null: false
