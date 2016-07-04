@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160701160710) do
+ActiveRecord::Schema.define(version: 20160704010412) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,13 @@ ActiveRecord::Schema.define(version: 20160701160710) do
     t.integer "preference_id", null: false
     t.integer "food_place_id", null: false
     t.index ["preference_id", "food_place_id"], name: "pref_to_food_place", using: :btree
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.string   "text",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "preferences", force: :cascade do |t|

@@ -7,10 +7,9 @@ Rails.application.routes.draw do
 
   resources :food_places, only: [:index, :show]
 
-
-
-  resources :user, only: [:show] do
+  resources :users, only: [:index] do
     resources :preferences, only: [:show, :update]
+    resources :messages, only: [:index, :create]
 
     resources :days, only: [] do
       collection do
